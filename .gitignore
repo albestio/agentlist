@@ -1,0 +1,25 @@
+# dependencies
+node_modules/
+
+# test and coverage output
+coverage/
+*.lcov
+
+# local tooling caches (skill registry, code graph, harness task tracking)
+.atl/
+.codegraph/
+odd/
+
+# logs and local environment
+*.log
+npm-debug.log*
+.env
+.env.*
+
+# editors and OS
+.DS_Store
+.idea/
+.vscode/
+
+# browser automation artifacts
+.playwright-mcp/

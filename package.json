@@ -1,0 +1,39 @@
+{
+  "name": "agentlist",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Read-only local web UI to browse Pi and Claude agents, skills and instruction files",
+  "license": "MIT",
+  "author": "albestio",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albestio/agentlist.git"
+  },
+  "homepage": "https://github.com/albestio/agentlist#readme",
+  "bugs": {
+    "url": "https://github.com/albestio/agentlist/issues"
+  },
+  "keywords": [
+    "pi",
+    "claude",
+    "agents",
+    "skills",
+    "subagents",
+    "local-first",
+    "developer-tools"
+  ],
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "files": [
+    "src",
+    "public",
+    "README.md",
+    "LICENSE"
+  ]
+}
