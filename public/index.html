@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="text-scale" content="scale">
+  <title>agentList · Pi agents</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>agentList</h1>
+      <p class="subtitle">Local definitions of Pi agents, read from the filesystem.</p>
+    </div>
+    <div class="topbar-controls">
+      <div class="field">
+        <label for="ecosystem">Ecosystem (applies to both tabs)</label>
+        <select id="ecosystem">
+          <option value="pi">Pi agents</option>
+          <option value="claude">Claude agents</option>
+          <option value="both">Pi + Claude</option>
+        </select>
+      </div>
+      <form class="cwd-form" id="cwd-form">
+        <label for="cwd">Project folder</label>
+        <div class="cwd-row">
+          <input id="cwd" name="cwd" type="text" spellcheck="false" autocomplete="off">
+          <button type="submit">Load</button>
+        </div>
+      </form>
+    </div>
+  </header>
+
+  <main>
+    <nav class="tabs" id="tabs" role="tablist" aria-label="Views">
+      <button type="button" role="tab" id="tab-agents" aria-selected="true" tabindex="0">Agents</button>
+      <button type="button" role="tab" id="tab-docs" aria-selected="false" tabindex="-1">Docs</button>
+    </nav>
+
+    <section class="sources" id="sources" aria-label="Agent sources"></section>
+
+    <section id="view-docs" role="tabpanel" aria-labelledby="tab-docs" hidden="until-found">
+      <div class="docs-toolbar">
+        <label for="doc-search">Search skills and instruction files (name, description, path)</label>
+        <input id="doc-search" type="search" placeholder="e.g. branch-pr, CLAUDE.md, triggers">
+        <p class="count" id="doc-count"></p>
+        <div id="doc-list" class="doc-list"></div>
+      </div>
+    </section>
+
+    <div class="layout" id="view-agents" role="tabpanel" aria-labelledby="tab-agents">
+      <section class="panel list-panel" aria-labelledby="list-heading">
+        <div class="toolbar">
+          <label for="search">Search agents (name, description, model, tools)</label>
+          <input id="search" type="search" placeholder="e.g. reviewer, beam-free, grep">
+          <div class="filters">
+            <label class="sr-only" for="scope">Scope filter</label>
+            <select id="scope">
+              <option value="all">All scopes</option>
+              <option value="global">Global only</option>
+              <option value="project">Project only</option>
+            </select>
+            <button type="button" id="clear" class="ghost">Clear filters</button>
+          </div>
+        </div>
+        <p class="count" id="count"></p>
+        <ul id="list" class="list"></ul>
+      </section>
+      <aside class="panel detail-panel" id="detail">
+        <p class="empty">Select an agent to see its source, frontmatter and instructions.</p>
+      </aside>
+    </div>
+  </main>
+  <p class="sr-only" id="status" role="status" aria-live="polite"></p>
+  <dialog class="drawer" id="drawer" closedby="any" aria-labelledby="drawer-title">
+    <header class="drawer-head">
+      <div class="drawer-heading">
+        <h2 id="drawer-title"></h2>
+        <p class="drawer-subtitle" id="drawer-subtitle"></p>
+      </div>
+      <button type="button" id="drawer-close" class="ghost drawer-close" aria-label="Close preview">✕</button>
+    </header>
+    <div class="drawer-scroll" id="drawer-scroll">
+      <dl class="meta drawer-meta" id="drawer-meta"></dl>
+      <p class="issue-note" id="drawer-note" hidden></p>
+      <div id="drawer-body"></div>
+      <div id="drawer-actions"></div>
+    </div>
+  </dialog>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

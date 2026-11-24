@@ -1,0 +1,247 @@
+/*
+ * Theme tokens: GitHub Primer functional colours, copied as values so the app
+ * keeps zero runtime dependencies. Each token carries its light and dark value
+ * in one light-dark() pair; the used one follows `color-scheme`.
+ */
+:root {
+  color-scheme: light dark;
+  scrollbar-gutter: stable;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --bgColor-default: light-dark(#ffffff, #0d1117);
+  --bgColor-muted: light-dark(#f6f8fa, #151b23);
+  --bgColor-inset: light-dark(#f6f8fa, #010409);
+  --bgColor-neutral-muted: light-dark(#818b981f, #656c7633);
+  --bgColor-accent-muted: light-dark(#ddf4ff, #388bfd1a);
+  --bgColor-accent-emphasis: light-dark(#0969da, #1f6feb);
+  --fgColor-default: light-dark(#1f2328, #f0f6fc);
+  --fgColor-muted: light-dark(#59636e, #9198a1);
+  --fgColor-accent: light-dark(#0969da, #4493f8);
+  --fgColor-danger: light-dark(#d1242f, #f85149);
+  --fgColor-success: light-dark(#1a7f37, #3fb950);
+  --fgColor-attention: light-dark(#9a6700, #d29922);
+  --fgColor-severe: light-dark(#bc4c00, #db6d28);
+  --fgColor-onEmphasis: light-dark(#ffffff, #ffffff);
+  --borderColor-default: light-dark(#d1d9e0, #3d444d);
+  --borderColor-muted: light-dark(#d1d9e0b3, #3d444db3);
+  --borderColor-emphasis: light-dark(#818b98, #656c76);
+  /* Control boundaries: >=3:1 against both their fill and the panel. */
+  --borderColor-neutral-emphasis: light-dark(#59636e, #656c76);
+  --borderColor-accent-emphasis: light-dark(#0969da, #1f6feb);
+  --borderColor-accent-muted: light-dark(#54aeff66, #388bfd66);
+  --overlayColor-backdrop: light-dark(rgb(4 8 12 / 0.5), rgb(0 0 0 / 0.7));
+  --shadowColor-drawer: light-dark(rgb(31 35 40 / 0.18), rgb(1 4 9 / 0.65));
+}
+
+* { box-sizing: border-box; }
+/* Class rules such as .layout set a display, which would otherwise defeat the
+   hidden attribute. hidden="until-found" must keep its content findable. */
+[hidden]:not([hidden="until-found"]) { display: none !important; }
+[hidden="until-found"] { content-visibility: hidden; }
+body {
+  margin: 0;
+  padding: 1.5rem;
+  max-width: 1500px;
+  margin-inline: auto;
+  min-height: 100dvh;
+  background: var(--bgColor-default);
+  color: var(--fgColor-default);
+}
+.topbar { display: flex; flex-wrap: wrap; gap: 1rem 2rem; align-items: end; justify-content: space-between; margin-bottom: 1.25rem; }
+h1 { margin: 0; font-size: 1.6rem; letter-spacing: -0.02em; }
+.subtitle { margin: 0.25rem 0 0; color: var(--fgColor-muted); font-size: 0.9rem; }
+.cwd-form label, .toolbar label, .topbar-controls label { display: block; color: var(--fgColor-muted); font-size: 0.8rem; margin-bottom: 0.35rem; }
+.topbar-controls { display: flex; gap: 1rem; align-items: end; flex-wrap: wrap; }
+.topbar-controls select { min-width: 11rem; }
+.cwd-row { display: flex; gap: 0.5rem; }
+input, select, button { font: inherit; color: inherit; }
+input[type="text"], input[type="search"], select {
+  background: var(--bgColor-inset);
+  border: 1px solid var(--borderColor-neutral-emphasis);
+  border-radius: 8px;
+  padding: 0.5rem 0.65rem;
+  color: var(--fgColor-default);
+}
+input[type="text"] { min-width: min(52vw, 34rem); }
+button {
+  background: var(--bgColor-default);
+  border: 1px solid var(--borderColor-neutral-emphasis);
+  border-radius: 8px;
+  padding: 0.5rem 0.8rem;
+  color: var(--fgColor-default);
+  cursor: pointer;
+}
+button:hover { background: var(--bgColor-muted); }
+button.ghost { background: transparent; border-color: var(--borderColor-neutral-emphasis); color: var(--fgColor-muted); }
+button.ghost:hover { background: var(--bgColor-muted); color: var(--fgColor-default); }
+:focus-visible { outline: 2px solid var(--fgColor-accent); outline-offset: 2px; }
+.sources { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 1rem; }
+.sources-title, .issues { color: var(--fgColor-muted); font-size: 0.85rem; }
+.source-chip { border: 1px solid var(--borderColor-default); border-radius: 999px; padding: 0.25rem 0.6rem; font-size: 0.78rem; }
+.source-chip.global { color: var(--fgColor-accent); }
+.source-chip.project { color: var(--fgColor-success); }
+.source-chip.missing { color: var(--fgColor-muted); border-style: dashed; }
+.issues { font-size: 0.8rem; }
+.issues summary { cursor: pointer; color: var(--fgColor-muted); }
+.issues summary:hover { color: var(--fgColor-default); }
+.issues.error summary { color: var(--fgColor-danger); }
+.issue-note { color: var(--fgColor-muted); margin: 0.4rem 0 0.2rem; max-width: 46rem; }
+.issue-list { margin: 0.4rem 0 0; padding-left: 1.1rem; display: grid; gap: 0.2rem; }
+.issue-list code { color: var(--fgColor-accent); font-size: 0.75rem; }
+.layout { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, 1fr); gap: 1rem; align-items: start; }
+.panel { background: var(--bgColor-muted); border: 1px solid var(--borderColor-default); border-radius: 12px; padding: 1rem; }
+.toolbar input[type="search"] { width: 100%; }
+.filters { display: flex; gap: 0.5rem; align-items: center; margin-top: 0.6rem; }
+.count { color: var(--fgColor-muted); font-size: 0.82rem; margin: 0.9rem 0 0.5rem; }
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.35rem; }
+.row {
+  display: grid; grid-template-columns: minmax(9rem, 1fr) auto minmax(8rem, 1fr) auto;
+  gap: 0.2rem 0.7rem; text-align: left; width: 100%;
+  border-radius: 8px; padding: 0.6rem 0.7rem;
+}
+.row.selected { border-color: var(--fgColor-accent); background: var(--bgColor-accent-muted); }
+.row-name { font-weight: 600; }
+.row-scope { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.06em; align-self: center; }
+.eco-badge { font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.06em; border-radius: 4px; padding: 0.05rem 0.3rem; align-self: center; border: 1px solid var(--borderColor-default); color: var(--fgColor-muted); }
+.eco-badge.pi { color: var(--fgColor-accent); border-color: var(--borderColor-accent-muted); }
+.eco-badge.claude { color: var(--fgColor-severe); border-color: var(--borderColor-muted); }
+.row-scope.global { color: var(--fgColor-accent); }
+.row-scope.project { color: var(--fgColor-success); }
+.row-model, .row-source { font-size: 0.78rem; color: var(--fgColor-muted); overflow-wrap: anywhere; }
+.row-desc { grid-column: 1 / -1; font-size: 0.82rem; color: var(--fgColor-default); overflow-wrap: anywhere; }
+.badge { font-size: 0.68rem; align-self: center; border: 1px solid var(--borderColor-muted); color: var(--fgColor-attention); border-radius: 4px; padding: 0.05rem 0.3rem; }
+.badge.error, .warning { color: var(--fgColor-danger); }
+.detail-panel { position: sticky; top: 1rem; max-height: calc(100dvh - 3rem); overflow: auto; }
+.detail-panel h2 { margin: 0 0 0.35rem; font-size: 1.25rem; }
+.detail-panel h3 { margin: 1.1rem 0 0.4rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fgColor-muted); }
+.description { color: var(--fgColor-default); margin: 0 0 0.8rem; }
+.meta { display: grid; grid-template-columns: 6rem 1fr; gap: 0.3rem 0.6rem; font-size: 0.82rem; margin: 0; }
+.meta dt { color: var(--fgColor-muted); }
+.meta dd { margin: 0; overflow-wrap: anywhere; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.chip { background: var(--bgColor-neutral-muted); border: 1px solid var(--borderColor-default); border-radius: 6px; padding: 0.15rem 0.45rem; font-size: 0.78rem; }
+.body { white-space: pre-wrap; overflow-wrap: anywhere; background: var(--bgColor-inset); border: 1px solid var(--borderColor-default); border-radius: 8px; padding: 0.8rem; font-size: 0.78rem; line-height: 1.5; max-height: 24rem; overflow: auto; }
+.muted, .empty { color: var(--fgColor-muted); }
+.list-empty { text-align: center; padding: 2rem 0; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+@media (max-width: 900px) {
+  body { padding: 1rem; }
+  .layout { grid-template-columns: 1fr; }
+  .detail-panel { position: static; max-height: none; }
+  input[type="text"] { min-width: 0; width: 100%; }
+  .cwd-form { width: 100%; }
+  .row { grid-template-columns: minmax(0, 1fr) auto; }
+  .row-model { grid-column: 1 / -1; }
+}
+
+.tabs { display: flex; gap: 0.4rem; margin-bottom: 1rem; border-bottom: 1px solid var(--borderColor-default); }
+.tabs button {
+  background: transparent; border: 1px solid transparent; border-bottom: none;
+  border-radius: 8px 8px 0 0; padding: 0.5rem 1rem; color: var(--fgColor-muted);
+}
+.tabs button[aria-selected="true"] { color: var(--fgColor-default); background: var(--bgColor-muted); border-color: var(--borderColor-neutral-emphasis); }
+.tabs button:hover { color: var(--fgColor-default); }
+.docs-toolbar { background: var(--bgColor-muted); border: 1px solid var(--borderColor-default); border-radius: 12px; padding: 1rem; }
+.docs-toolbar label { display: block; color: var(--fgColor-muted); font-size: 0.8rem; margin-bottom: 0.35rem; }
+.docs-toolbar input[type="search"] { width: 100%; }
+.doc-list { display: grid; gap: 1.2rem; }
+.doc-section { display: grid; gap: 0.4rem; }
+.doc-section-head { display: flex; align-items: baseline; gap: 0.5rem; }
+.doc-section-head h2 { margin: 0; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--fgColor-muted); }
+.doc-row { background: var(--bgColor-default); border: 1px solid var(--borderColor-neutral-emphasis); border-radius: 8px; padding: 0.6rem 0.7rem; }
+.doc-head { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.doc-kind, .doc-size { font-size: 0.76rem; color: var(--fgColor-muted); }
+.doc-desc { margin: 0.35rem 0 0; font-size: 0.82rem; color: var(--fgColor-default); }
+.doc-path { margin: 0.25rem 0 0; font-size: 0.75rem; color: var(--fgColor-muted); overflow-wrap: anywhere; }
+details.preview { margin-top: 0.4rem; }
+details.preview summary { cursor: pointer; font-size: 0.78rem; color: var(--fgColor-accent); }
+details.preview .body { margin-top: 0.4rem; max-height: 18rem; }
+.doc-issues { display: grid; gap: 0.4rem; }
+
+.md { font-size: 0.82rem; line-height: 1.55; color: var(--fgColor-default); max-height: 20rem; overflow: auto;
+  background: var(--bgColor-inset); border: 1px solid var(--borderColor-default); border-radius: 8px; padding: 0.7rem 0.85rem; margin-top: 0.4rem; }
+.md > :first-child { margin-top: 0; }
+.md h1, .md h2, .md h3, .md h4, .md h5, .md h6 { margin: 0.9rem 0 0.4rem; line-height: 1.25; color: var(--fgColor-default); }
+.md h1 { font-size: 1.15rem; } .md h2 { font-size: 1.02rem; } .md h3 { font-size: 0.94rem; }
+.md h4, .md h5, .md h6 { font-size: 0.86rem; }
+.md p { margin: 0.45rem 0; }
+.md ul, .md ol { margin: 0.45rem 0; padding-left: 1.3rem; }
+.md li { margin: 0.15rem 0; }
+.md code { background: var(--bgColor-neutral-muted); border-radius: 4px; padding: 0.05rem 0.3rem; font-size: 0.78rem; }
+.md pre.md-code { background: var(--bgColor-inset); border: 1px solid var(--borderColor-default); border-radius: 6px; padding: 0.6rem;
+  overflow: auto; margin: 0.5rem 0; }
+.md pre.md-code code { background: none; padding: 0; font-size: 0.76rem; }
+.md blockquote { margin: 0.5rem 0; padding-left: 0.7rem; border-left: 3px solid var(--borderColor-emphasis); color: var(--fgColor-muted); }
+.md hr { border: none; border-top: 1px solid var(--borderColor-default); margin: 0.8rem 0; }
+.md a { color: var(--fgColor-accent); }
+.md strong { color: var(--fgColor-default); }
+
+/* Native modal drawer: the top layer makes the page inert, so no scroll lock,
+   backdrop element or focus trap is hand-rolled here. */
+dialog.drawer {
+  position: fixed;
+  inset: 0 0 0 auto;
+  margin: 0;
+  width: min(760px, 94vw);
+  max-width: 94vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  border: none;
+  border-left: 1px solid var(--borderColor-default);
+  border-radius: 0;
+  padding: 1rem 1.1rem 1.1rem;
+  background: var(--bgColor-default);
+  color: var(--fgColor-default);
+  box-shadow: -18px 0 40px var(--shadowColor-drawer);
+  transform: translateX(100%);
+  transition: transform 0.18s ease-out, display 0.18s allow-discrete, overlay 0.18s allow-discrete;
+  transition-behavior: allow-discrete;
+}
+dialog.drawer[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transform: translateX(0);
+}
+@starting-style {
+  dialog.drawer[open] { transform: translateX(100%); }
+}
+dialog.drawer::backdrop {
+  background-color: transparent;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  transition: background-color 0.18s ease-out, display 0.18s allow-discrete, overlay 0.18s allow-discrete;
+  transition-behavior: allow-discrete;
+}
+dialog.drawer[open]::backdrop { background-color: var(--overlayColor-backdrop); }
+@starting-style {
+  dialog.drawer[open]::backdrop { background-color: transparent; }
+}
+dialog:modal { overscroll-behavior: contain; }
+.drawer-head { display: flex; align-items: flex-start; gap: 1rem; justify-content: space-between; }
+.drawer-heading h2 { margin: 0; font-size: 1.15rem; overflow-wrap: anywhere; }
+.drawer-subtitle { margin: 0.25rem 0 0; color: var(--fgColor-muted); font-size: 0.8rem; }
+.drawer-close { padding: 0.25rem 0.55rem; line-height: 1; }
+.drawer-meta { grid-template-columns: 6rem 1fr; font-size: 0.8rem; }
+.drawer-scroll { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; gap: 0.6rem; padding-right: 0.25rem; }
+.drawer-scroll > .md:last-child { margin-bottom: 0; }
+.md-drawer { max-height: none; overflow: visible; }
+.drawer-actions { display: flex; align-items: center; gap: 0.7rem; padding-top: 0.2rem; }
+.drawer-actions:empty { display: none; }
+.read-full { padding: 0.45rem 0.8rem; background: var(--bgColor-accent-emphasis); border-color: var(--borderColor-accent-emphasis); color: var(--fgColor-onEmphasis); }
+.read-full:hover { background: var(--bgColor-accent-emphasis); }
+.read-full[disabled] { opacity: 0.6; cursor: progress; }
+.drawer-actions-hint { font-size: 0.78rem; }
+
+.preview-button { padding: 0.2rem 0.55rem; font-size: 0.76rem; margin-left: auto; }
+
+/* Only the elements that animate are reduced; a global reset would also strip
+   transitions the user still needs for non-vestibular feedback. */
+@media (prefers-reduced-motion: reduce) {
+  dialog.drawer,
+  dialog.drawer[open],
+  dialog.drawer::backdrop,
+  dialog.drawer[open]::backdrop {
+    transition: none;
+  }
+}
