@@ -9,13 +9,21 @@ agentList is a local web page that shows which agents, skills and instruction fi
 
 ## Install
 
+Run it without cloning anything:
+
+```sh
+npx albestio/agentlist
+```
+
+Or clone it, which is the same program with no install step:
+
 ```sh
 gh repo clone albestio/agentlist
 cd agentlist
 npm start
 ```
 
-There is no build step and nothing to install: the folder you clone is the program.
+`npx` fetches the current `main` from GitHub. The package is not on the npm registry, so use the `owner/repo` form. Either way there is no build step and nothing to install: the folder you clone is the program.
 
 ## Run
 

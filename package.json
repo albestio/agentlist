@@ -27,6 +27,9 @@
     "start": "node src/server.js",
     "test": "node --test"
   },
+  "bin": {
+    "agentlist": "src/server.js"
+  },
   "engines": {
     "node": ">=20"
   },

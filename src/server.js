@@ -1,4 +1,6 @@
+#!/usr/bin/env node
 import http from "node:http";
+import { realpathSync } from "node:fs";
 import { readFile, stat } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -144,7 +146,18 @@ export function createServer({
   });
 }
 
-const invokedDirectly = process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url);
+// `npm start` invokes the real file, but an installed bin is a symlink: compare
+// real paths or the server never starts when the package is installed.
+function isMainEntry() {
+  if (!process.argv[1]) return false;
+  try {
+    return realpathSync(resolve(process.argv[1])) === realpathSync(fileURLToPath(import.meta.url));
+  } catch {
+    return false;
+  }
+}
+
+const invokedDirectly = isMainEntry();
 if (invokedDirectly) {
   const initialCwd = process.argv[2] || process.env.AGENTLIST_CWD || process.cwd();
   const host = process.env.HOST || "127.0.0.1";
